@@ -1,0 +1,18 @@
+<?php
+class sql{
+    public $conn;
+
+    public function __construct(){
+        $user ="root";
+        $pass = "pass";
+        $serv = "localhost";
+        $db = "gato";
+
+        $this->conn = new mysqli($serv,$user,$pass,$db);
+    }
+
+    public function ejecutar($sql){
+        $result = $this->conn->query($sql);
+        return $result;
+    }
+}
