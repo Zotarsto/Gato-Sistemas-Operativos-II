@@ -88,15 +88,24 @@ class gato
         
         $ganador = $this->verificarGanador($g1, $g2, $g3, $g4, $g5, $g6, $g7, $g8, $g9);
 
-        // Lógica para mostrar al ganador
-        $mensajeGanador = '';
+        $ganador = $this->verificarGanador($g1, $g2, $g3, $g4, $g5, $g6, $g7, $g8, $g9);
+        $esEmpate = $this->esEmpate($g1, $g2, $g3, $g4, $g5, $g6, $g7, $g8, $g9);
+
+        // Lógica para mostrar al ganador o empate
         if ($ganador != '') {
-        $mensajeGanador = '¡El ganador es el Jugador ' . ($ganador == 'x' ? '1' : '2') . '!';
-        echo "<script>
-        alert('$mensajeGanador');
-        window.location.href = 'index.php'; // Redireccionar al inicio
-        </script>";
+            $mensajeGanador = '¡El ganador es el Jugador ' . ($ganador == 'x' ? '1' : '2') . '!';
+            echo "<script>
+                alert('$mensajeGanador');
+                window.location.href = 'index.php'; // Redireccionar al inicio
+                </script>";
+        } elseif ($esEmpate) {
+            $mensajeEmpate = '¡Es un empate!';
+            echo "<script>
+                alert('$mensajeEmpate');
+                window.location.href = 'index.php'; // Redireccionar al inicio
+                </script>";
         }
+
 
         $line = '
         <div class="row">
@@ -248,5 +257,17 @@ class gato
         }
         
         return ""; // Si no hay ganador
-    }    
+    }
+    function esEmpate($g1, $g2, $g3, $g4, $g5, $g6, $g7, $g8, $g9)
+    {
+        // Verificar si todas las casillas están ocupadas
+        $casillas = [$g1, $g2, $g3, $g4, $g5, $g6, $g7, $g8, $g9];
+        foreach ($casillas as $casilla) {
+            if ($casilla == "") {
+                return false;
+            }
+        }
+        // Si todas las casillas están llenas y no hay ganador, es un empate
+        return true;
+    }
 }
